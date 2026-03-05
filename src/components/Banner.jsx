@@ -5,7 +5,7 @@ const Banner = ({ inProgressCount, resolvedCount }) => {
 
                 {/* In-Progress card — purple gradient */}
                 <div
-                    className="rounded-2xl p-10 flex flex-col items-center justify-center text-white relative overflow-hidden min-h-[170px]"
+                    className="rounded-2xl p-10 flex flex-col items-center justify-center text-white relative overflow-hidden min-h-42.5"
                     style={{ background: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 50%, #4c1d95 100%)" }}
                 >
                     {/* Decorative wave lines */}
@@ -29,7 +29,7 @@ const Banner = ({ inProgressCount, resolvedCount }) => {
 
                 {/* Resolved card — green gradient */}
                 <div
-                    className="rounded-2xl p-10 flex flex-col items-center justify-center text-white relative overflow-hidden min-h-[170px]"
+                    className="rounded-2xl p-10 flex flex-col items-center justify-center text-white relative overflow-hidden min-h-42.5"
                     style={{ background: "linear-gradient(135deg, #059669 0%, #047857 50%, #065f46 100%)" }}
                 >
                     <div className="absolute inset-0 opacity-20">
