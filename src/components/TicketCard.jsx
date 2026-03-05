@@ -1,68 +1,61 @@
-const AVATAR_COLORS = [
-  "bg-primary", "bg-secondary", "bg-error", "bg-warning",
-  "bg-purple-500", "bg-orange-500", "bg-cyan-500", "bg-pink-500",
-  "bg-emerald-500", "bg-indigo-500", "bg-red-500", "bg-violet-500",
-];
-
-const PRIORITY_CONFIG = {
-  low:    { badge: "badge-success",  bar: "bg-secondary" },
-  medium: { badge: "badge-warning",  bar: "bg-warning"   },
-  high:   { badge: "badge-error",    bar: "bg-error"     },
+const PRIORITY_STYLES = {
+    high: "text-red-500",
+    medium: "text-yellow-500",
+    low: "text-green-500",
 };
 
-const getInitials = (name) =>
-  name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
+const STATUS_BADGE = {
+    "open": { label: "Open", cls: "bg-green-100 text-green-700 border border-green-300" },
+    "in-progress": { label: "In- Progress", cls: "bg-yellow-100 text-yellow-700 border border-yellow-300" },
+};
 
-const TicketCard = ({ ticket, index, onClick }) => {
-  const { badge, bar } = PRIORITY_CONFIG[ticket.priority];
+const TicketCard = ({ ticket, onClick }) => {
+    const { label, cls } = STATUS_BADGE[ticket.status] || STATUS_BADGE["open"];
 
-  return (
-    <div
-      className="card bg-base-200 border border-base-300 cursor-pointer relative overflow-hidden
-                 transition-all duration-200
-                 hover:border-primary hover:bg-base-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40"
-      onClick={() => onClick(ticket)}
-      title="Click to add to In Progress"
-    >
-      {/* Priority colour bar on the left */}
-      <div className={`absolute top-0 left-0 w-1 h-full ${bar} rounded-l-2xl`} />
-
-      <div className="card-body p-4 gap-2 pl-5">
-
-        {/* ID + Priority badge */}
-        <div className="flex justify-between items-start">
-          <span className="text-[11px] text-base-content/30 font-semibold tracking-wider">
-            {ticket.id}
-          </span>
-          <span className={`badge badge-sm ${badge} badge-outline font-bold uppercase tracking-wider text-[10px]`}>
-            {ticket.priority}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h3 className="font-syne font-bold text-sm leading-snug">{ticket.title}</h3>
-
-        {/* Description */}
-        <p className="text-xs text-base-content/50 leading-relaxed line-clamp-2">
-          {ticket.description}
-        </p>
-
-        {/* Footer: avatar + customer name + date */}
-        <div className="flex justify-between items-center mt-1">
-          <div className="flex items-center gap-2">
-            <div className="avatar placeholder">
-              <div className={`${AVATAR_COLORS[index % AVATAR_COLORS.length]} text-white rounded-full w-6 text-[10px] font-bold`}>
-                <span>{getInitials(ticket.customer)}</span>
-              </div>
+    return (
+        <div
+            className="bg-white border border-gray-200 rounded-xl p-4 cursor-pointer
+                 hover:shadow-md hover:border-gray-300 transition-all duration-200"
+            onClick={() => onClick(ticket)}
+        >
+            {/* Title + Status badge */}
+            <div className="flex items-start justify-between gap-2 mb-2">
+                <h3 className="font-semibold text-gray-900 text-sm leading-snug flex-1">
+                    {ticket.title}
+                </h3>
+                <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full whitespace-nowrap ${cls}`}>
+                    {label}
+                </span>
             </div>
-            <span className="text-xs text-base-content/50 font-medium">{ticket.customer}</span>
-          </div>
-          <span className="text-[10px] text-base-content/30">{ticket.createdAt}</span>
-        </div>
 
-      </div>
-    </div>
-  );
+            {/* Description */}
+            <p className="text-xs text-gray-500 leading-relaxed mb-3 line-clamp-2">
+                {ticket.description}
+            </p>
+
+            {/* Footer: id + priority + customer + date */}
+            <div className="flex items-center gap-3 text-xs text-gray-400 flex-wrap">
+                <span className="text-gray-500 font-medium">{ticket.id}</span>
+
+                <span className={`font-bold uppercase text-[11px] ${PRIORITY_STYLES[ticket.priority]}`}>
+                    {ticket.priority} priority
+                </span>
+
+                <span className="flex-1" />
+
+                <span className="text-gray-500">{ticket.customer}</span>
+
+                <span className="flex items-center gap-1 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    {ticket.createdAt}
+                </span>
+            </div>
+        </div>
+    );
 };
 
 export default TicketCard;

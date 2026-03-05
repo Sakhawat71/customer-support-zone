@@ -1,71 +1,96 @@
-const LINKS = {
-  Product:  ["Dashboard", "Tickets", "Analytics", "Reports"],
-  Company:  ["About Us", "Careers", "Blog", "Press"],
-  Support:  ["Help Center", "Documentation", "Status", "Contact"],
-};
-
 const Footer = () => {
-  return (
-    <footer className="bg-base-200 border-t border-base-300 mt-16">
-      <div className="max-w-6xl mx-auto px-6 md:px-10">
+    return (
+        <footer className="bg-gray-900 text-white mt-16">
+            <div className="max-w-6xl mx-auto px-6 md:px-10 py-12">
 
-        {/* ── Top grid ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 py-12 border-b border-base-300">
+                {/* Top grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-gray-700">
 
-          {/* Brand */}
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-sm">
-                🎧
-              </div>
-              <span className="font-syne font-extrabold text-lg text-base-content">
-                Support<span className="text-primary">Zone</span>
-              </span>
+                    {/* Brand */}
+                    <div className="lg:col-span-2">
+                        <h3 className="font-bold text-lg mb-3">CS — Ticket System</h3>
+                        <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                            when an unknown printer took a galley of type and scrambled it to make a type
+                            specimen book.
+                        </p>
+                    </div>
+
+                    {/* Company */}
+                    <div>
+                        <h4 className="font-semibold text-white mb-4">Company</h4>
+                        <ul className="flex flex-col gap-2">
+                            {["About Us", "Our Mission", "Contact Sales"].map((item) => (
+                                <li key={item}>
+                                    <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                                        {item}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Services */}
+                    <div>
+                        <h4 className="font-semibold text-white mb-4">Services</h4>
+                        <ul className="flex flex-col gap-2">
+                            {["Products & Services", "Customer Stories", "Download Apps"].map((item) => (
+                                <li key={item}>
+                                    <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                                        {item}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Information */}
+                    <div>
+                        <h4 className="font-semibold text-white mb-4">Information</h4>
+                        <ul className="flex flex-col gap-2">
+                            {["Privacy Policy", "Terms & Conditions", "Join Us"].map((item) => (
+                                <li key={item}>
+                                    <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                                        {item}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                </div>
+
+                {/* Social Links row — separate column in design */}
+                <div className="pt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <h4 className="font-semibold text-white mb-4">Social Links</h4>
+                        <ul className="flex flex-col gap-2">
+                            {[
+                                { icon: "𝕏", label: "@CS — Ticket System" },
+                                { icon: "in", label: "@CS — Ticket System" },
+                                { icon: "f", label: "@CS — Ticket System" },
+                                { icon: "✉", label: "support@cst.com" },
+                            ].map(({ icon, label }) => (
+                                <li key={label}>
+                                    <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors flex items-center gap-2">
+                                        <span className="w-5 text-center font-bold text-white">{icon}</span>
+                                        {label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+
             </div>
-            <p className="text-xs text-base-content/40 leading-relaxed max-w-[220px]">
-              A modern customer support platform helping teams track, manage,
-              and resolve issues faster.
-            </p>
-          </div>
 
-          {/* Link columns */}
-          {Object.entries(LINKS).map(([heading, items]) => (
-            <div key={heading}>
-              <h3 className="font-syne font-bold text-xs uppercase tracking-widest text-base-content/60 mb-4">
-                {heading}
-              </h3>
-              <ul className="flex flex-col gap-2">
-                {items.map((item) => (
-                  <li key={item}>
-                    <a href="#" className="link link-hover text-sm text-base-content/50 hover:text-primary">
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+            {/* Bottom copyright */}
+            <div className="border-t border-gray-700 py-4 text-center">
+                <p className="text-gray-500 text-sm">© 2025 CS — Ticket System. All rights reserved.</p>
             </div>
-          ))}
-        </div>
-
-        {/* ── Bottom bar ── */}
-        <div className="flex flex-wrap justify-between items-center py-5 gap-4">
-          <p className="text-xs text-base-content/30">
-            © 2026 SupportZone. All rights reserved.
-          </p>
-          <div className="flex gap-2">
-            {["𝕏", "gh", "in", "dc"].map((icon) => (
-              <a key={icon} href="#"
-                className="btn btn-ghost btn-xs btn-circle border border-base-300
-                           text-base-content/40 hover:text-primary hover:border-primary text-[10px] font-bold">
-                {icon}
-              </a>
-            ))}
-          </div>
-        </div>
-
-      </div>
-    </footer>
-  );
+        </footer>
+    );
 };
 
 export default Footer;

@@ -12,9 +12,9 @@ import initialTickets from './data/tickets';
 function App() {
     const [tickets, setTickets] = useState(initialTickets);
     const [inProgress, setInProgress] = useState([]);
-    const [resolvedCount, setResolved] = useState(0);
+    const [resolvedTasks, setResolved] = useState([]);
 
-    // ── Click ticket card → add to In Progress ──
+    // Click a ticket card → add to In Progress
     const handleTicketClick = (ticket) => {
         if (inProgress.find((t) => t.id === ticket.id)) {
             toast.info(`"${ticket.title}" is already in progress!`, {
@@ -23,67 +23,58 @@ function App() {
             return;
         }
         setInProgress((prev) => [...prev, ticket]);
-        toast.success('Ticket added to In Progress! 🚀', {
+        toast.success('Ticket added to In Progress!', {
             position: 'top-right', autoClose: 2500,
         });
     };
 
-    // ── Click Complete → resolve ticket ──
+    // Click Complete → resolve
     const handleComplete = (task) => {
         setInProgress((prev) => prev.filter((t) => t.id !== task.id));
         setTickets((prev) => prev.filter((t) => t.id !== task.id));
-        setResolved((prev) => prev + 1);
+        setResolved((prev) => [...prev, task]);
         toast.success(`✅ "${task.title}" resolved!`, {
             position: 'top-right', autoClose: 3000,
         });
     };
 
-    // ── New Ticket button ──
+    // New Ticket button
     const handleNewTicket = () => {
-        toast.info('New Ticket feature coming soon! 🎫', {
+        toast.info('New Ticket feature coming soon!', {
             position: 'top-right', autoClose: 2000,
         });
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-base-100" data-theme="supportzone">
-            <ToastContainer theme="dark" />
+        <div className="min-h-screen flex flex-col bg-gray-100" data-theme="light">
+            <ToastContainer />
 
             <Navbar onNewTicket={handleNewTicket} />
 
             <Banner
-                totalCount={tickets.length}
                 inProgressCount={inProgress.length}
-                resolvedCount={resolvedCount}
+                resolvedCount={resolvedTasks.length}
             />
 
-            {/* ── Main content ── */}
-            <main className="flex-1 max-w-6xl w-full mx-auto px-6 md:px-10 py-10
-                       grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-7 items-start">
+            {/* Main content */}
+            <main className="flex-1 max-w-6xl w-full mx-auto px-6 md:px-10 py-8
+                       grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8 items-start">
 
-                {/* Left — Ticket grid */}
+                {/* Left — Customer Tickets */}
                 <section>
-                    <div className="flex items-center gap-3 mb-5">
-                        <h2 className="font-syne font-bold text-lg">🎫 Customer Tickets</h2>
-                        <div className="badge badge-neutral border border-base-300 text-base-content/50 text-xs">
-                            {tickets.length} open
-                        </div>
-                    </div>
+                    <h2 className="font-bold text-gray-900 text-lg mb-4">Customer Tickets</h2>
 
                     {tickets.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center py-24 gap-3">
+                        <div className="flex flex-col items-center justify-center py-24 gap-3 text-gray-400">
                             <span className="text-5xl">🎉</span>
-                            <p className="font-syne font-bold text-xl text-base-content/50">
-                                All tickets resolved!
-                            </p>
+                            <p className="font-semibold text-lg">All tickets resolved!</p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {tickets.map((ticket, index) => (
+                            {tickets.map((ticket) => (
                                 <TicketCard
                                     key={ticket.id}
                                     ticket={ticket}
-                                    index={index}
                                     onClick={handleTicketClick}
                                 />
                             ))}
@@ -91,8 +82,12 @@ function App() {
                     )}
                 </section>
 
-                {/* Right — Task Status panel */}
-                <TaskStatusPanel tasks={inProgress} onComplete={handleComplete} />
+                {/* Right — Task Status */}
+                <TaskStatusPanel
+                    tasks={inProgress}
+                    resolvedTasks={resolvedTasks}
+                    onComplete={handleComplete}
+                />
 
             </main>
 
