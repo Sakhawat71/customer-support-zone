@@ -1,10 +1,10 @@
 const Footer = () => {
     return (
         <footer className="bg-gray-900 text-white mt-16">
-            <div className="max-w-6xl mx-auto px-6 md:px-10 py-12">
+            <div className=" mx-auto px-6 md:px-10 py-12">
 
                 {/* Top grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-gray-700">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 pb-10 border-b border-gray-700">
 
                     {/* Brand */}
                     <div className="lg:col-span-2">
@@ -59,10 +59,8 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                </div>
+                    {/* Social Links */}
 
-                {/* Social Links row — separate column in design */}
-                <div className="pt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                         <h4 className="font-semibold text-white mb-4">Social Links</h4>
                         <ul className="flex flex-col gap-2">
